@@ -29,6 +29,12 @@ function beep(ctx, frequency, startTime, duration, type = "sine") {
   oscillator.stop(startTime + duration + 0.05);
 }
 
+// Plays a single soft beep when the timer is started.
+export function playStartChime() {
+  const ctx = getAudioContext();
+  beep(ctx, 740, ctx.currentTime, 0.12);
+}
+
 // Plays a sound when a phase ends. `nextMode` is the phase being entered.
 export function playPhaseEndChime(nextMode) {
   const ctx = getAudioContext();

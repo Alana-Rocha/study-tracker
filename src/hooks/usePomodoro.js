@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { BREAK_SECONDS, POMODORO_KEY, WORK_SECONDS } from "../constants.js";
-import { playPhaseEndChime, primeAudio } from "../sound.js";
+import { playPhaseEndChime, playStartChime, primeAudio } from "../sound.js";
 
 export function usePomodoro() {
   const [mode, setMode] = useState("work"); // "work" | "break"
@@ -9,7 +9,7 @@ export function usePomodoro() {
   const [sessionsCompleted, setSessionsCompleted] = useState(0);
   const [pomodoroLoaded, setPomodoroLoaded] = useState(false);
   const tickRef = useRef(null);
-  const isFirstMode = useRef(true);
+  const previousMode = useRef(mode);
 
   useEffect(() => {
     (async () => {
@@ -52,16 +52,19 @@ export function usePomodoro() {
 
   useEffect(() => {
     setSecondsLeft(mode === "work" ? WORK_SECONDS : BREAK_SECONDS);
-    if (isFirstMode.current) {
-      isFirstMode.current = false;
-      return;
+    if (previousMode.current !== mode) {
+      playPhaseEndChime(mode);
     }
-    playPhaseEndChime(mode);
+    previousMode.current = mode;
   }, [mode]);
 
   const toggleTimer = () => {
     primeAudio();
-    setIsRunning((r) => !r);
+    setIsRunning((r) => {
+      const next = !r;
+      if (next) playStartChime();
+      return next;
+    });
   };
 
   const resetTimer = () => {
