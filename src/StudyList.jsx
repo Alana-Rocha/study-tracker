@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Plus } from "lucide-react";
 import { StudyCard } from "./components/StudyCard.jsx";
 
-export function StudyList({ studies, onOpenStudy, onCreateStudy, onDeleteStudy }) {
+export function StudyList({ studies, onOpenStudy, onCreateStudy, onDeleteStudy, onShowHelp }) {
   const [name, setName] = useState("");
   const [examDate, setExamDate] = useState("");
 
@@ -19,15 +19,30 @@ export function StudyList({ studies, onOpenStudy, onCreateStudy, onDeleteStudy }
     <div style={{ maxWidth: 720, margin: "0 auto" }}>
       <div
         style={{
-          fontFamily: "'Barlow Condensed', sans-serif",
-          fontWeight: 700,
-          fontSize: 30,
-          letterSpacing: 0.5,
-          textTransform: "uppercase",
+          display: "flex",
+          alignItems: "baseline",
+          justifyContent: "space-between",
           marginBottom: 20,
         }}
       >
-        Meus Estudos
+        <div
+          style={{
+            fontFamily: "'Barlow Condensed', sans-serif",
+            fontWeight: 700,
+            fontSize: 30,
+            letterSpacing: 0.5,
+            textTransform: "uppercase",
+          }}
+        >
+          Meus Estudos
+        </div>
+        <button
+          onClick={onShowHelp}
+          className="btn-flat"
+          style={{ background: "none", border: "none", color: "#8FA6A8", cursor: "pointer", fontSize: 13 }}
+        >
+          Como funciona?
+        </button>
       </div>
 
       {studies.length > 0 && (

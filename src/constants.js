@@ -2,6 +2,7 @@
 // migrated into the first study the first time useStudies.js loads.
 export const STORAGE_KEY = "transpetro-study-data-v1";
 export const STUDIES_KEY = "study-tracker-studies-v1";
+export const ONBOARDING_SEEN_KEY = "study-tracker-onboarding-seen-v1";
 export const POMODORO_KEY = "transpetro-pomodoro-v1";
 export const EXAM_DATE = new Date("2026-11-29T13:00:00-03:00");
 export const WORK_SECONDS = 25 * 60;
