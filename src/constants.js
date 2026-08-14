@@ -1,8 +1,12 @@
+// Legacy single-study key, kept only so existing saved progress can be
+// migrated into the first study the first time useStudies.js loads.
 export const STORAGE_KEY = "transpetro-study-data-v1";
+export const STUDIES_KEY = "study-tracker-studies-v1";
 export const POMODORO_KEY = "transpetro-pomodoro-v1";
 export const EXAM_DATE = new Date("2026-11-29T13:00:00-03:00");
 export const WORK_SECONDS = 25 * 60;
 export const BREAK_SECONDS = 5 * 60;
+export const SUBJECT_COLORS = ["#2E8C90", "#F2A93B", "#6FA96C", "#D9643A"];
 
 export const DEFAULT_SUBJECTS = [
   {

@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { ChevronDown, ChevronRight, Plus } from "lucide-react";
+import { ChevronDown, ChevronRight, Plus, Trash2 } from "lucide-react";
 import { TopicRow } from "./TopicRow.jsx";
 
-export function SubjectCard({ subject, defaultOpen, onToggleTopic, onDeleteTopic, onAddTopic }) {
+export function SubjectCard({ subject, defaultOpen, onToggleTopic, onDeleteTopic, onAddTopic, onDeleteSubject }) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
   const [newTopicText, setNewTopicText] = useState("");
 
@@ -24,37 +24,49 @@ export function SubjectCard({ subject, defaultOpen, onToggleTopic, onDeleteTopic
         overflow: "hidden",
       }}
     >
-      <button
-        className="btn-flat"
-        onClick={() => setIsOpen((v) => !v)}
-        style={{
-          width: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "16px 20px",
-          background: "transparent",
-          border: "none",
-          cursor: "pointer",
-          color: "#ECE8DE",
-          textAlign: "left",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          {isOpen ? <ChevronDown size={18} color="#8FA6A8" /> : <ChevronRight size={18} color="#8FA6A8" />}
-          <span style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: 20, fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.3 }}>
-            {subject.name}
-          </span>
-        </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <div style={{ width: 120, height: 6, background: "rgba(255,255,255,0.08)", borderRadius: 3, overflow: "hidden" }}>
-            <div style={{ width: `${pct}%`, height: "100%", background: subject.color, transition: "width 0.3s ease" }} />
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <button
+          className="btn-flat"
+          onClick={() => setIsOpen((v) => !v)}
+          style={{
+            flex: 1,
+            minWidth: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            padding: "16px 20px",
+            background: "transparent",
+            border: "none",
+            cursor: "pointer",
+            color: "#ECE8DE",
+            textAlign: "left",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            {isOpen ? <ChevronDown size={18} color="#8FA6A8" /> : <ChevronRight size={18} color="#8FA6A8" />}
+            <span style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: 20, fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.3 }}>
+              {subject.name}
+            </span>
           </div>
-          <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 13, color: "#8FA6A8", minWidth: 44, textAlign: "right" }}>
-            {done}/{subject.topics.length}
-          </span>
-        </div>
-      </button>
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <div style={{ width: 120, height: 6, background: "rgba(255,255,255,0.08)", borderRadius: 3, overflow: "hidden" }}>
+              <div style={{ width: `${pct}%`, height: "100%", background: subject.color, transition: "width 0.3s ease" }} />
+            </div>
+            <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 13, color: "#8FA6A8", minWidth: 44, textAlign: "right" }}>
+              {done}/{subject.topics.length}
+            </span>
+          </div>
+        </button>
+        {onDeleteSubject && (
+          <button
+            onClick={onDeleteSubject}
+            style={{ background: "none", border: "none", cursor: "pointer", padding: "0 16px", opacity: 0.5 }}
+            aria-label="Excluir matéria"
+          >
+            <Trash2 size={16} color="#D9643A" />
+          </button>
+        )}
+      </div>
 
       {isOpen && (
         <div style={{ padding: "0 12px 14px" }}>

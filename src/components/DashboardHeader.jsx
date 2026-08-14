@@ -1,7 +1,7 @@
 import { Flame } from "lucide-react";
 import { Gauge } from "./Gauge.jsx";
 
-export function DashboardHeader({ daysLeft, overallPercent }) {
+export function DashboardHeader({ title, daysLeft, examDate, overallPercent }) {
   return (
     <div
       style={{
@@ -27,24 +27,25 @@ export function DashboardHeader({ daysLeft, overallPercent }) {
             lineHeight: 1,
           }}
         >
-          Painel de Estudos <span style={{ color: "#F2A93B" }}>Transpetro</span>
+          {title}
         </div>
-        <div style={{ color: "#8FA6A8", fontSize: 14, marginTop: 6 }}>
-          Análise de Sistemas — Processos de Negócio
-        </div>
-        <div
-          style={{
-            marginTop: 14,
-            display: "flex",
-            alignItems: "baseline",
-            gap: 8,
-            fontFamily: "'IBM Plex Mono', monospace",
-          }}
-        >
-          <Flame size={18} color="#F2A93B" />
-          <span style={{ fontSize: 28, fontWeight: 600, color: "#F2A93B" }}>{daysLeft}</span>
-          <span style={{ color: "#8FA6A8", fontSize: 14 }}>dias até a prova (29/11/2026)</span>
-        </div>
+        {daysLeft !== null && (
+          <div
+            style={{
+              marginTop: 14,
+              display: "flex",
+              alignItems: "baseline",
+              gap: 8,
+              fontFamily: "'IBM Plex Mono', monospace",
+            }}
+          >
+            <Flame size={18} color="#F2A93B" />
+            <span style={{ fontSize: 28, fontWeight: 600, color: "#F2A93B" }}>{daysLeft}</span>
+            <span style={{ color: "#8FA6A8", fontSize: 14 }}>
+              dias restantes{examDate ? ` (${examDate.toLocaleDateString("pt-BR")})` : ""}
+            </span>
+          </div>
+        )}
       </div>
       <Gauge percent={overallPercent} />
     </div>
