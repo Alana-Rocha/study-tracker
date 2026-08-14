@@ -49,9 +49,7 @@ export function usePomodoro() {
   }, [isRunning]);
 
   useEffect(() => {
-    if (secondsLeft === 0) {
-      setSecondsLeft(mode === "work" ? WORK_SECONDS : BREAK_SECONDS);
-    }
+    setSecondsLeft(mode === "work" ? WORK_SECONDS : BREAK_SECONDS);
   }, [mode]);
 
   const toggleTimer = () => setIsRunning((r) => !r);
